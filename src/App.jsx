@@ -4,10 +4,10 @@ import Header from "./components/Header";
 import Stake from "./components/Stake";
 import AppTabs from "./components/AppTabs";
 import Unstake from "./components/Unstake";
-import Stats from "./components/Stats";
 import Balance from "./components/Balance";
 import "@radix-ui/themes/styles.css";
 import { Flex, Box } from "@radix-ui/themes";
+import CreatePool from "./components/CreatePool";
 
 configureWeb3Modal();
 
@@ -18,7 +18,7 @@ function App() {
         <Header />
         <Flex gap="4">
           <Box>
-            <Stats className="mt-5" />
+            <CreatePool className="mt-5" />
             <Balance />
           </Box>
 

@@ -5,12 +5,7 @@ const Stake = () => {
   const [amount, setAmount] = useState(0);
 
   return (
-    <Card
-      size="2"
-      style={{ width: 500, height: 500 }}
-      align="center"
-      justify="center"
-    >
+    <Card size="2" style={{ width: 500, height: 500 }}>
       <Flex gap="" align="center">
         <Box width={"100%"}>
           <Flex justify={"between"} align={"center"}>
