@@ -2,6 +2,7 @@ import { Box, Tabs } from "@radix-ui/themes";
 
 const AppTabs = ({ Stake, Unstake }) => {
   return (
+    
     <Tabs.Root defaultValue="stake">
       <Tabs.List>
         <Tabs.Trigger value="stake">Stake</Tabs.Trigger>

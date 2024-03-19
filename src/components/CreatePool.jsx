@@ -1,26 +1,24 @@
 import { Box, Card, Flex, Text, TextField } from "@radix-ui/themes";
 import { useState } from "react";
 import useCreatePool from "../hooks/useCreatePool";
-import usePools from "../hooks/UsePools";
+import usePool from "../hooks/UsePool";
 
-const CreatePool = () => {
+const CreatePool = (stakes) => {
   const [rate, setRate] = useState(0);
   const [poolId, setPoolId] = useState(0);
 
-  console.log(rate);
-
   const handleCreatePool = useCreatePool(rate);
 
-  const handleUsePool = usePools();
+  const handleUsePool = usePool();
 
   return (
-    <Card size="2" style={{ width: 500, height: 500 }} className="mt-5 mb-5">
+    <Card size="2" style={{ width: 400 }} className="mt-5 mb-5">
       <Flex gap="" align="center">
         <Box width={"100%"}>
+          <Text as="div" weight="bold" gap="5">
+            $ Create Pool
+          </Text>
           <Flex justify={"between"} align={"center"}>
-            <Text as="div" weight="bold">
-              $ Create Pool
-            </Text>
             <Text as="div" weight="bold">
               Stake
             </Text>
@@ -35,23 +33,24 @@ const CreatePool = () => {
             >
               Create Pool
             </button>
-            <button
-              className="text-white bg-blue-600 py-1 px-4 rounded-md"
-              onClick={() => handleUsePool(setPoolId())}
-            >
-              Get Pools
-            </button>
-            <Text as="div" weight="bold">
-              Total Staked Monie
-            </Text>
           </Flex>
-          <Flex align="center">
+          <button
+            className="text-white bg-blue-600 py-1 px-4 rounded-md mt-5"
+            onClick={() => handleUsePool(setPoolId())}
+          >
+            Get Pools
+          </button>
+          <Text as="div" weight="bold" className="mt-5">
+            Total Staked Monie
+          </Text>
+          <Flex align="center" className="mt-5" gap="5">
             <div>
               <Text>You will receive</Text>
               <Text>APR</Text>
               <Text>{poolId}</Text>
             </div>
-            <Text>NO. of Stakers</Text>
+            <Text>NO. of Stakes</Text>
+            <Text>{stakes.stakes}</Text>
           </Flex>
         </Box>
       </Flex>

@@ -7,9 +7,9 @@ import {
   useWeb3ModalProvider,
 } from "@web3modal/ethers/react";
 import contractAbi from "../constants/ABIs/contractAbi.json";
-import tokenAbi from "../constants/ABIs/tokenAbi.json";
 
-const useCreatePool = (rate) => {
+const useStake = (poolId, amount) => {
+  console.log("looking for me? :", poolId, amount);
   const { chainId } = useWeb3ModalAccount();
   const { walletProvider } = useWeb3ModalProvider();
 
@@ -29,49 +29,26 @@ const useCreatePool = (rate) => {
       contractAbi,
       signer
     );
-    console.log("staked");
+    console.log("contracted");
 
-    // const tokenContract = new ethers.Contract(
-    //   import.meta.env.VITE_contract_address,
-    //   tokenAbi,
-    //   signer
-    // );
+    const value = ethers.parseUnits(String(amount), 18);
 
-    const rewardTokenContract = new ethers.Contract(
-      import.meta.env.VITE_reward_token_contract_address,
-      tokenAbi,
-      signer
-    );
-
-    const value = ethers.parseUnits("100", 18);
 
     try {
-      console.log("trying to approve", rate);
-      const approve = await rewardTokenContract.approve(
-        import.meta.env.VITE_staking_contract_address,
-        value
-      );
-
-      const approveReceipt = await approve.wait();
-
-      console.log("trying to stake", approveReceipt);
-      if (approveReceipt.status) {
-        const createPool = await stakingContract.createPool(rate);
+      console.log("trying to approve", poolId, value);
+        const Stake = await stakingContract.stake(poolId.poolId, value);
         console.log("staked");
 
-        const receipt = await createPool.wait();
+        const receipt = await Stake.wait();
         console.log("trying 3", receipt);
 
         if (receipt.status) {
-          return console.log("Pool Created Successfully");
+          return console.log("Staked Successfully");
         }
-
-        return console.log("Pool Creation Failed");
-      }
     } catch (err) {
       console.log(err);
       return err;
     }
-  }, [rate, chainId, walletProvider]);
+  }, [poolId, amount, chainId, walletProvider]);
 };
-export default useCreatePool;
+export default useStake;

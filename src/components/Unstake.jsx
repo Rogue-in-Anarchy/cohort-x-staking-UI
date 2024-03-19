@@ -1,40 +1,40 @@
-import { Box, Card, Flex, Text, TextField } from "@radix-ui/themes";
-import { useState } from "react";
+import {  Flex, Dialog, Button } from "@radix-ui/themes";
+import useUnStake from "../hooks/UseUnStake";
 
-const Unstake = () => {
-  const [amount, setAmount] = useState(0);
+const Unstake = (poolId) => {
+  const handleUnStaking = useUnStake(poolId)
 
   return (
-    <Card size="2" style={{ width: 500, height: 500 }}>
-      <Flex gap="" align="center">
-        <Box width={"100%"}>
-          <Flex justify={"between"} align={"center"}>
-            <Text as="div" weight="bold">
-              Stake
-            </Text>
-            <TextField.Input
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              placeholder="Enter Voter's Address"
-            />
-            <button
-              className="text-white bg-blue-600 py-1 px-4 rounded-md"
-              // onClick={() => handleVote(id)}
+    <Dialog.Root>
+    <Dialog.Trigger>
+        <Button className="bg-blue-600 ml-3">UnStake</Button>
+    </Dialog.Trigger>
+
+    <Dialog.Content style={{ maxWidth: 450 }}>
+        <Dialog.Title>Unstake Pool</Dialog.Title>
+        <Dialog.Description size="2" mb="4">
+            Unstake
+        </Dialog.Description>
+
+        <Flex direction="column" gap="3">
+        </Flex>
+
+        <Flex gap="3" mt="4" justify="end">
+            <Dialog.Close>
+                <Button variant="soft" color="gray">
+                    Cancel
+                </Button>
+            </Dialog.Close>
+            <Button
+                className="bg-blue-600"
+                onClick={handleUnStaking}
             >
-              Unstake
-            </button>
-          </Flex>
-          <Flex align="center">
-            <Text>You will receive</Text>
-            <Text>MONIE</Text>
-          </Flex>
-          <Flex align="center">
-            <Text>Staking APR</Text>
-            <Text>0.5% Daily</Text>
-          </Flex>
-        </Box>
-      </Flex>
-    </Card>
+                UnStake
+            </Button>
+        </Flex>
+    </Dialog.Content>
+</Dialog.Root>
+
   );
 };
 
